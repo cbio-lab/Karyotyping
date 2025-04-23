@@ -15,7 +15,9 @@ Centomers position, chr ID, chr length
 Activate `hisat2 env` and run:
 
 > hisat2-build genome.fna hisat2_idx
+
 > hisat2 --very-sensitive --non-deterministic --no-spliced-alignment -a --no-softclip -p 10 -x hisat2_idx -c target_seq -S mapping.sam 2> mapping_stat.hisat
+
 > samtool view mapping.sam > view_map.txt
 
 ### 4. Visualisation
