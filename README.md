@@ -4,8 +4,7 @@
 Pipeline for visualisation AluY repeats location in genomes of different organisms.
 
 ### 1. Installation
-Download src folder, which contains scripts and envirounments.
-Click on ..
+The conda and/or mamba package management systems required ed to run computational script. Install if needed:
 
 Install Miniconda (https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html)
 
@@ -19,10 +18,20 @@ For `Linux x86_64 (amd64)`:
 If initialization failed, it can be done by calling `conda` with its full path, with something like
 > ~/miniforge3/bin/conda init
 
-Install the `hisat2` and `R_AluY_pkgs` envirounments from `.yml` files via command:
-> conda env create -n hisat2 --file hisat2.yml
+_______________________________________________________________________________________________________________
+Download repository archive, that contains scripts and envirounments.
+Click on green button `Code` -> `Download zip`
 
-> conda env create -n R_AluY_pkgs --file R_AluY_pkgs.yml
+Then move the archive into server and unpack via:
+> unzip AluY-distribution-main.zip && rm AluY-distribution-main.zip
+
+Next go to `AluY-distribution-main` directory:
+> cd AluY-distribution-main
+
+Install the `hisat2` and `R_AluY_pkgs` envirounments from `.yml` files via command:
+> conda env create -n hisat2 --file src/hisat2.yml
+
+> conda env create -n R_AluY_pkgs --file src/R_AluY_pkgs.yml
 
 ### 2. Running
 For running script you should find UCSC genome identificator (`ucsc_id`) of your genome of interest.
