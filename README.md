@@ -54,10 +54,17 @@ Go to https://genome.ucsc.edu/cgi-bin/hgGateway?hgsid=2524985107_dAb8wrCzhEaTXfQ
 
 Choose Clade, Genome and Assembly. `ucsc_id` is assebly ID after `/`, like `calJac4` in a picture.
 
-From your current directory and `base` envirounment run `download_genome.sh`, that located in `src` folder. Also you need to provide to script `ucsc_id` and `annealed_sequence` which you would like to align:
-
+ The main script `download_genome.sh` located in `src` folder. It supports `-h` flag, that shows main info:
+```
+src/download_genome.sh -h
+```
+From your current directory and `base` envirounment run the script. Also you need to provide `ucsc_id` and `annealed_sequence` which you would like to align:
 ```
 src/download_genome.sh -g ucsc_id -s annealed_sequence
+```
+Example:
+```
+src/download_genome.sh -g rheMac10 -s CGGTGGCTCAAGCCTGTAATCCCAGCACTTTG
 ```
 
 Plots for each chromosome will be located in `./plots/chromosome_plots.zip`. Main plot with all chromosomes in one picture will be in `./plots/ucsc_id_main.pdf`. Running info (ucsc_id, annealed_sequence, date, time) will be in `./ucsc_id_genome_dir/params.log`.
