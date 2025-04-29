@@ -40,7 +40,6 @@ else
     
     echo "Uncompressing files..."
     gunzip ${genome}.fa.gz
-    rm ${genome}.fa.gz
 fi
 
 
