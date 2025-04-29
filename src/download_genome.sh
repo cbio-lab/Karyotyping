@@ -1,8 +1,31 @@
 #!/bin/bash
 
-genome=$1
-current_dir="$PWD"
+print_help() {
+    cat <<EOF
+Usage: $0 -g <ucsc_id> -s <sequence>
 
+A script to visualize the location of annealed repeats in the genomes of different organisms.
+
+Options:
+  -g, --genome STR    Input UCSC genome ID (required)
+  -s, --sequence STR    Input annealed sequence (required)
+  -h, --help          Show this help message
+
+EOF
+}
+
+# Parse arguments
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --genome|-g) genome="$2"; shift ;;
+    --sequence|-s) sequence="$2"; shift ;;
+    --help|-h) print_help ;;
+    *) echo "Unknown parameter: $1" >&2; exit 1 ;;
+  esac
+  shift
+done
+
+current_dir="$PWD"
 
 mkdir -p ${current_dir}/${genome}_genome_dir
 cd ${current_dir}/${genome}_genome_dir
