@@ -1,7 +1,7 @@
 # AluY-distribution
 
 ## Description
-Pipeline for visualisation AluY repeats location in genomes of different organisms.
+Pipeline to visualize the location of annealed repeats in the genomes of different organisms.
 
 ### 1. Installation
 The conda and/or mamba package management systems required ed to run computational script. Install if needed:
@@ -33,6 +33,9 @@ Install the `hisat2` and `R_AluY_pkgs` envirounments from `.yml` files via comma
 
 > conda env create -n R_AluY_pkgs --file src/R_AluY_pkgs.yml
 
+Make script executable:
+> chmod +x src/download_genome.sh
+
 ### 2. Running
 For running script you should find UCSC genome identificator (`ucsc_id`) of your genome of interest.
 
@@ -42,8 +45,8 @@ Go to https://genome.ucsc.edu/cgi-bin/hgGateway?hgsid=2524985107_dAb8wrCzhEaTXfQ
 
 Choose Clade, Genome and Assembly. `ucsc_id` is assebly ID after `/`, like `calJac4` in a picture.
 
-From your current directory and `base` envirounment run `download_genome.sh`, that located in `src` folder. Also you need to provide to script `ucsc_id`:
+From your current directory and `base` envirounment run `download_genome.sh`, that located in `src` folder. Also you need to provide to script `ucsc_id` and `annealed_sequence` which you would like to align:
 
-> bash src/download_genome.sh ucsc_id
+> src/download_genome.sh -g ucsc_id -s annealed_sequence
 
-Plots for each chromosome will be located in `./plots/chromosome_plots.zip`. Main plot with all chromosomes in one picture will be in `./plots/ucsc_id_main.pdf`
+Plots for each chromosome will be located in `./plots/chromosome_plots.zip`. Main plot with all chromosomes in one picture will be in `./plots/ucsc_id_main.pdf`. Running info (ucsc_id, annealed_sequence, date, time) will be in `./ucsc_id_genome_dir/params.log`.
