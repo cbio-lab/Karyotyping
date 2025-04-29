@@ -30,11 +30,18 @@ current_dir="$PWD"
 mkdir -p ${current_dir}/${genome}_genome_dir
 cd ${current_dir}/${genome}_genome_dir
 
-echo "Downloading genome..."
-rsync -a -P rsync://hgdownload.soe.ucsc.edu/goldenPath/${genome}/bigZips/${genome}.fa.gz ./
 
-echo "Uncompressing files..."
-gunzip ${genome}.fa.gz
+# Downloading genome
+if [ -f "${current_dir}/${genome}_genome_dir/${genome}.fa" ]; then
+    echo "Genome already downloaded"
+else
+    echo "Downloading genome..."
+    rsync -a -P rsync://hgdownload.soe.ucsc.edu/goldenPath/${genome}/bigZips/${genome}.fa.gz ./
+    
+    echo "Uncompressing files..."
+    gunzip ${genome}.fa.gz
+    rm ${genome}.fa.gz
+fi
 
 
 # Mapping AluY sequence to genome
@@ -45,10 +52,27 @@ echo "Building genome index..."
 hisat2-build ${genome}.fa ${genome}_idx
 
 echo 'Mapping AluY sequence to genome...'
-hisat2 --very-sensitive --non-deterministic --no-spliced-alignment -a --no-softclip -p 10 -x ${genome}_idx -c CGGTGGCTCAAGCCTGTAATCCCAGCACTTTG -S ${genome}_mapping.sam 2> mapping_stat.hisat
+hisat2 --very-sensitive --non-deterministic --no-spliced-alignment -a --no-softclip -p 10 -x ${genome}_idx -c $sequence -S ${genome}_mapping.sam 2> mapping_stat.hisat
 samtools view ${genome}_mapping.sam > ${genome}_mapping.txt
+
 rm ${genome}_mapping.sam
 conda deactivate
+
+# Log setup
+LOG_FILE="params.log"
+
+# Log all inputs
+{
+    echo "===== Parameter Log ====="
+    echo "Timestamp: $(date)"
+    echo "User: $(whoami)"
+    # echo "Host: $(hostname)"
+    # echo "PID: $$"
+    echo "Genome: ${genome}"
+    echo "Annealed sequence: ${sequence}"
+    echo "========================"
+} | tee "$LOG_FILE"
+
 echo 'DONE!'
 echo "-----------------------------------------"
 
