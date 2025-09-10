@@ -1,4 +1,4 @@
-# AluY-distribution
+# Karyotyping
 
 ## Description
 Pipeline to visualize the location of annealed repeats in the genomes of different organisms.
