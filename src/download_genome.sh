@@ -48,7 +48,7 @@ eval "$(conda shell.bash hook)"
 conda activate hisat2
 
 echo "Building genome index..."
-hisat2-build ${genome}.fa ${genome}_idx
+hisat2-build -p 10 ${genome}.fa ${genome}_idx
 
 echo 'Mapping AluY sequence to genome...'
 hisat2 --very-sensitive --non-deterministic --no-spliced-alignment -a --no-softclip -p 10 -x ${genome}_idx -c $sequence -S ${genome}_mapping.sam 2> mapping_stat.hisat

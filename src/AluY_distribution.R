@@ -30,13 +30,27 @@ chrs <- getTable(query) %>%
   rename(lens = chromEnd)
 
 # Input centromere info
-query <- ucscTableQuery(session, 
-                        table = "gap",
-                        range = ucsc_id)
-centromeres <- getTable(query) %>% 
-  filter(type == 'centromere') %>%               # choose centromeres
-  select(c('chrom', 'chromStart', 'chromEnd', 'size')) %>% 
-  rename(centStart = chromStart, centEnd = chromEnd)
+if (ucsc_id == 'hg38') {
+  query <- ucscTableQuery(session, 
+                          table = "centromeres",
+                          range = ucsc_id)
+  centromeres <- getTable(query) %>%
+    group_by(chrom) %>%
+    summarize(
+      centStart = min(chromStart),
+      centEnd = max(chromEnd),
+      size = max(chromEnd) - min(chromStart)
+    ) %>%
+    ungroup()
+} else {
+  query <- ucscTableQuery(session, 
+                          table = "gap")
+                          #range = ucsc_id)
+  centromeres <- getTable(query) %>% 
+    filter(type == 'centromere') %>%               # choose centromeres
+    select(c('chrom', 'chromStart', 'chromEnd', 'size')) %>% 
+    rename(centStart = chromStart, centEnd = chromEnd)
+}
 
 # Join chromosome and centromeres info tables
 chromosome_info <- left_join(chrs, centromeres, by = 'chrom') %>% 
