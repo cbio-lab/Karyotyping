@@ -1,7 +1,7 @@
 # Karyotyping
 
 ## Description
-Pipeline to visualize the location of annealed repeats in the genomes of different organisms.
+A pipeline to visualize the locations of annealed repeats in the genomes of different organisms.
 
 ### 1. Installation
 The conda and/or mamba package management systems required ed to run computational script. Install if needed:
